@@ -2,6 +2,10 @@
 <img width="1277" height="734" alt="image" src="https://github.com/user-attachments/assets/731b4705-10ab-446a-adda-211d686a2685" />
 
 
+
+https://github.com/user-attachments/assets/d6b799dd-b8a0-42a0-a588-4d62c13defb2
+
+
 **Project resources**
 <a href="https://drive.google.com/drive/folders/1mSzyuS_It3MjtxQI11ZgtFGYU0qDubYo?usp=sharing">Google Drive Folder</a>
 **EduNova** (formerly SkillGPS) is a comprehensive, state-of-the-art educational platform designed to redefine self-paced learning. By leveraging advanced Artificial Intelligence (Groq & Google Gemini), it dynamically generates personalized learning roadmaps, assesses code in real-time within a multi-language IDE, and simulates technical interviews for comprehensive skill development.
