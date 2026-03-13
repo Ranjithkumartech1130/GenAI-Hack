@@ -1,0 +1,219 @@
+﻿python : S:\Skill-GPS-4\ai\main.py:10: 
+FutureWarning: 
+At line:1 char:198
++ ... ll -Force }; Start-Sleep 
+-Seconds 2; python main.py > 
+server.log 2>&1
++                                      
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpeci 
+   fied: (S:\Skill-GPS-4\...FutureWar  
+  ning: :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCo 
+   mmandError
+ 
+
+All support for the 
+`google.generativeai` package has 
+ended. It will no longer be receiving 
+updates or bug fixes. Please switch to 
+the `google.genai` package as soon as 
+possible.
+See README for more details:
+
+https://github.com/google-gemini/deprec
+ated-generative-ai-python/blob/main/REA
+DME.md
+
+  import google.generativeai as genai
+INFO:     Started server process [3252]
+INFO:     Waiting for application 
+startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on 
+http://0.0.0.0:8002 (Press CTRL+C to 
+quit)
+--- RAW GEMINI OUTPUT ---
+```json
+[
+  {
+    "title": "Feature Engineering: Polynomial Feature Generator",
+    "description": "As a junior ML engineer, you're tasked with enhancing a linear regression model by adding polynomial features. Your function should take a 1D NumPy array representing a single feature and an integer degree, then return a new 2D NumPy array where each column corresponds to the feature raised to powers from 1 to `degree`. This is a common step in feature engineering to capture non-linear relationships.",
+    "starter_code": "import numpy as np\n\ndef generate_polynomial_features(feature_vector: np.ndarray, degree: int) -> np.ndarray:\n    \"\"\"\n    Generates polynomial features for a given 1D feature vector.\n\n    Args:\n        feature_vector (np.ndarray): A 1D NumPy array representing the original feature.\n        degree (int): The maximum degree for the polynomial features.\n\n    Returns:\n        np.ndarray: A 2D NumPy array where each column is the feature raised to powers\n                    from 1 to `degree`.\n    \"\"\"\n    # Your implementation here\n    pass",
+    "solution": "import numpy as np\n\ndef generate_polynomial_features(feature_vector: np.ndarray, degree: int) -> np.ndarray:\n    \"\"\"\n    Generates polynomial features for a given 1D feature vector.\n\n    Args:\n        feature_vector (np.ndarray): A 1D NumPy array representing the original feature.\n        degree (int): The maximum degree for the polynomial features.\n\n    Returns:\n        np.ndarray: A 2D NumPy array where each column is the feature raised to powers\n                    from 1 to `degree`.\n    \"\"\"\n    if not isinstance(feature_vector, np.ndarray) or feature_vector.ndim != 1:\n        raise ValueError(\"feature_vector must be a 1D NumPy array.\")\n    if not isinstance(degree, int) or degree < 1:\n        raise ValueError(\"degree must be a positive integer.\")\n\n    # Reshape feature_vector to a column vector for broadcasting\n    feature_vector_col = feature_vector.reshape(-1, 1)\n\n    # Generate powers from 1 to degree\n    polynomial_features = [feature_vector_col ** (i + 1) for i in range(degree)]\n\n    # Concatenate them horizontally\n    return np.hstack(polynomial_features)",
+    "language": "python",
+    "test_cases": [
+      {
+        "input": "import numpy as np\nfeature = np.array([1, 2, 3])\ndegree = 2\nresult = generate_polynomial_features(feature, degree)\nexpected = np.array([[1, 1], [2, 4], [3, 9]])\nnp.array_equal(result, expected)",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\nfeature = np.array([0.5, 1.0, 1.5, 2.0])\ndegree = 3\nresult = generate_polynomial_features(feature, degree)\nexpected = np.array([\n    [0.5, 0.25, 0.125],\n    [1.0, 1.0, 1.0],\n    [1.5, 2.25, 3.375],\n    [2.0, 4.0, 8.0]\n])\nnp.allclose(result, expected)",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\nfeature = np.array([10])\ndegree = 1\nresult = generate_polynomial_features(feature, degree)\nexpected = np.array([[10]])\nnp.array_equal(result, expected)",
+        "expected_output": "True"
+      }
+    ]
+  },
+  {
+    "title": "Data Preprocessing: Missing Value Imputer (Mean/Median)",
+    "description": "In a real-world dataset for a classification task, you often encounter missing values. Your role is to implement a simple yet effective missing value imputer. The function should take a 2D NumPy array (representing your dataset where rows are samples and columns are features) and a strategy ('mean' or 'median'). It should return a new NumPy array where all `np.nan` values in each column are replaced by either the mean or median of that specific column. This is a fundamental step before training many machine learning models.",
+    "starter_code": "import numpy as np\nfrom typing import Literal\n\ndef impute_missing_values(data: np.ndarray, strategy: Literal['mean', 'median']) -> np.ndarray:\n    \"\"\"\n    Imputes missing values (np.nan) in a 2D NumPy array using either the mean or median strategy.\n\n    Args:\n        data (np.ndarray): A 2D NumPy array with potentially missing values (np.nan).\n        strategy (Literal['mean', 'median']): The imputation strategy to use.\n\n    Returns:\n        np.ndarray: A new NumPy array with missing values imputed.\n    \"\"\"\n    # Your implementation here\n    pass",
+    "solution": "import numpy as np\nfrom typing import Literal\n\ndef impute_missing_values(data: np.ndarray, strategy: Literal['mean', 'median']) -> np.ndarray:\n    \"\"\"\n    Imputes missing values (np.nan) in a 2D NumPy array using either the mean or median strategy.\n\n    Args:\n        data (np.ndarray): A 2D NumPy array with potentially missing values (np.nan).\n        strategy (Literal['mean', 'median']): The imputation strategy to use.\n\n    Returns:\n        np.ndarray: A new NumPy array with missing values imputed.\n    \"\"\"\n    if not isinstance(data, np.ndarray) or data.ndim != 2:\n        raise ValueError(\"data must be a 2D NumPy array.\")\n    if strategy not in ['mean', 'median']:\n        raise ValueError(\"strategy must be 'mean' or 'median'.\")\n\n    imputed_data = np.copy(data) # Create a copy to avoid modifying the original array\n\n    for col_idx in range(imputed_data.shape[1]):\n        column = imputed_data[:, col_idx]\n        non_nan_values = column[~np.isnan(column)]\n\n        if len(non_nan_values) == 0: # Handle columns with all NaNs\n            # For simplicity, we'll fill with 0, but a more robust solution might raise an error or use a global mean/median\n            fill_value = 0.0\n        elif strategy == 'mean':\n            fill_value = np.mean(non_nan_values)\n        elif strategy == 'median':\n            fill_value = np.median(non_nan_values)\n        \n        imputed_data[np.isnan(column), col_idx] = fill_value\n\n    return imputed_data",
+    "language": "python",
+    "test_cases": [
+      {
+        "input": "import numpy as np\ndata = np.array([\n    [1.0, 2.0, np.nan],\n    [4.0, np.nan, 6.0],\n    [7.0, 8.0, 9.0],\n    [np.nan, 10.0, 12.0]\n])\nstrategy = 'mean'\nresult = impute_missing_values(data, strategy)\nexpected = np.array([\n    [1.0, 2.0, 9.0],\n    [4.0, 6.666666666666667, 6.0],\n    [7.0, 8.0, 9.0],\n    [4.0, 10.0, 12.0]\n])\nnp.allclose(result, expected)",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\ndata = np.array([\n    [1.0, 2.0, np.nan],\n    [4.0, np.nan, 6.0],\n    [7.0, 8.0, 9.0],\n    [np.nan, 10.0, 12.0]\n])\nstrategy = 'median'\nresult = impute_missing_values(data, strategy)\nexpected = np.array([\n    [1.0, 2.0, 9.0],\n    [4.0, 8.0, 6.0],\n    [7.0, 8.0, 9.0],\n    [4.0, 10.0, 12.0]\n])\nnp.allclose(result, expected)",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\ndata = np.array([\n    [10.0, np.nan],\n    [20.0, np.nan],\n    [30.0, np.nan]\n])\nstrategy = 'mean'\nresult = impute_missing_values(data, strategy)\nexpected = np.array([\n    [10.0, 0.0],\n    [20.0, 0.0],\n    [30.0, 0.0]\n])\nnp.allclose(result, expected)",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\ndata = np.array([\n    [1.0, 2.0],\n    [3.0, 4.0]\n])\nstrategy = 'mean'\nresult = impute_missing_values(data, strategy)\nexpected = np.array([\n    [1.0, 2.0],\n    [3.0, 4.0]\n])\nnp.allclose(result, expected)",
+        "expected_output": "True"
+      }
+    ]
+  },
+  {
+    "title": "Model Evaluation: Custom F1-Score Calculator",
+    "description": "You're working on a binary classification project, and the business stakeholders are particularly interested in the F1-score due to an imbalanced dataset. While libraries like scikit-learn provide this, your task is to implement a custom function to calculate the F1-score given arrays of true labels and predicted labels. This ensures you understand the underlying metrics crucial for evaluating machine learning models. The F1-score is the harmonic mean of precision and recall.",
+    "starter_code": "import numpy as np\n\ndef calculate_f1_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:\n    \"\"\"\n    Calculates the F1-score for binary classification.\n\n    Args:\n        y_true (np.ndarray): A 1D NumPy array of true binary labels (0 or 1).\n        y_pred (np.ndarray): A 1D NumPy array of predicted binary labels (0 or 1).\n\n    Returns:\n        float: The F1-score. Returns 0.0 if precision or recall is undefined (e.g., no true positives).\n    \"\"\"\n    # Your implementation here\n    pass",
+    "solution": "import numpy as np\n\ndef calculate_f1_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:\n    \"\"\"\n    Calculates the F1-score for binary classification.\n\n    Args:\n        y_true (np.ndarray): A 1D NumPy array of true binary labels (0 or 1).\n        y_pred (np.ndarray): A 1D NumPy array of predicted binary labels (0 or 1).\n\n    Returns:\n        float: The F1-score. Returns 0.0 if precision or recall is undefined (e.g., no true positives).\n    \"\"\"\n    if not isinstance(y_true, np.ndarray) or y_true.ndim != 1 or not np.all(np.isin(y_true, [0, 1])):\n        raise ValueError(\"y_true must be a 1D NumPy array of 0s and 1s.\")\n    if not isinstance(y_pred, np.ndarray) or y_pred.ndim != 1 or not np.all(np.isin(y_pred, [0, 1])):\n        raise ValueError(\"y_pred must be a 1D NumPy array of 0s and 1s.\")\n    if len(y_true) != len(y_pred):\n        raise ValueError(\"y_true and y_pred must have the same length.\")\n\n    true_positives = np.sum((y_true == 1) & (y_pred == 1))\n    false_positives = np.sum((y_true == 0) & (y_pred == 1))\n    false_negatives = np.sum((y_true == 1) & (y_pred == 0))\n\n    # Calculate Precision\n    if (true_positives + false_positives) == 0:\n        precision = 0.0 # Avoid division by zero\n    else:\n        precision = true_positives / (true_positives + false_positives)\n\n    # Calculate Recall\n    if (true_positives + false_negatives) == 0:\n        recall = 0.0 # Avoid division by zero\n    else:\n        recall = true_positives / (true_positives + false_negatives)\n\n    # Calculate F1-score\n    if (precision + recall) == 0:\n        f1_score = 0.0 # Avoid division by zero\n    else:\n        f1_score = 2 * (precision * recall) / (precision + recall)\n\n    return f1_score",
+    "language": "python",
+    "test_cases": [
+      {
+        "input": "import numpy as np\ny_true = np.array([1, 1, 0, 1, 0, 0, 1, 1])\ny_pred = np.array([1, 0, 0, 1, 0, 1, 1, 1])\nresult = calculate_f1_score(y_true, y_pred)\nexpected = 0.8\nabs(result - expected) < 1e-9",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\ny_true = np.array([0, 0, 0, 0, 0])\ny_pred = np.array([0, 0, 0, 0, 0])\nresult = calculate_f1_score(y_true, y_pred)\nexpected = 0.0\nabs(result - expected) < 1e-9",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\ny_true = np.array([1, 1, 1, 1, 1])\ny_pred = np.array([0, 0, 0, 0, 0])\nresult = calculate_f1_score(y_true, y_pred)\nexpected = 0.0\nabs(result - expected) < 1e-9",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\ny_true = np.array([1, 1, 1, 1, 1])\ny_pred = np.array([1, 1, 1, 1, 1])\nresult = calculate_f1_score(y_true, y_pred)\nexpected = 1.0\nabs(result - expected) < 1e-9",
+        "expected_output": "True"
+      },
+      {
+        "input": "import numpy as np\ny_true = np.array([0, 0, 0, 1, 1, 1])\ny_pred = np.array([0, 1, 0, 1, 0, 1])\nresult = calculate_f1_score(y_true, y_pred)\n# TP=2, FP=1, FN=1\n# Precision = 2/3, Recall = 2/3\n# F1 = 2 * (2/3 * 2/3) / (2/3 + 2/3) = 2 * (4/9) / (4/3) = 8/9 * 3/4 = 2/3\nexpected = 2/3\nabs(result - expected) < 1e-9",
+        "expected_output": "True"
+      }
+    ]
+  }
+]
+```
+-------------------------
+INFO:     127.0.0.1:63701 - "POST /generate-tasks HTTP/1.1" 200 OK
+--- RAW GEMINI OUTPUT ---
+```json
+[
+  {
+    "title": "Feature Engineering: Polynomial Feature Generator",
+    "description": "As a junior ML engineer, you're tasked with enhancing a linear regression model's performance by introducing polynomial features. Your function should take a 1D NumPy array representing a single feature and an integer degree, then return a 2D NumPy array where each column corresponds to the feature raised to the power of 1 up to the specified degree. This is a common step in preparing data for polynomial regression. Handle edge cases like non-positive degrees gracefully.",
+    "starter_code": "import numpy as np\nfrom typing import List\n\ndef generate_polynomial_features(feature: np.ndarray, degree: int) -> np.ndarray:\n    \"\"\"\n    Generates polynomial features for a given 1D feature array.\n\n    Args:\n        feature (np.ndarray): A 1D NumPy array representing the input feature.\n        degree (int): The maximum degree for polynomial expansion.\n\n    Returns:\n        np.ndarray: A 2D NumPy array where each column is the feature raised\n                    to the power of 1 up to the specified degree.\n                    Returns an empty array if degree is non-positive.\n    \"\"\"\n    # Your implementation here\n    pass",
+    "solution": "import numpy as np\nfrom typing import List\n\ndef generate_polynomial_features(feature: np.ndarray, degree: int) -> np.ndarray:\n    \"\"\"\n    Generates polynomial features for a given 1D feature array.\n\n    Args:\n        feature (np.ndarray): A 1D NumPy array representing the input feature.\n        degree (int): The maximum degree for polynomial expansion.\n\n    Returns:\n        np.ndarray: A 2D NumPy array where each column is the feature raised\n                    to the power of 1 up to the specified degree.\n                    Returns an empty array if degree is non-positive.\n    \"\"\"\n    if not isinstance(feature, np.ndarray) or feature.ndim != 1:\n        raise ValueError(\"Input 'feature' must be a 1D NumPy array.\")\n    if not isinstance(degree, int) or degree <= 0:\n        return np.array([])\n\n    # Reshape feature to a column vector for broadcasting\n    feature_col = feature.reshape(-1, 1)\n\n    # Generate powers from 1 to degree\n    polynomial_features = [feature_col ** (i + 1) for i in range(degree)]\n\n    # Concatenate them horizontally\n    return np.hstack(polynomial_features)\n",
+    "language": "python",
+    "test_cases": [
+      {
+        "input": "generate_polynomial_features(np.array([1, 2, 3]), 2)",
+        "expected_output": "np.array([[1., 1.],\n       [2., 4.],\n       [3., 9.]])"
+      },
+      {
+        "input": "generate_polynomial_features(np.array([0.5, 1.5]), 3)",
+        "expected_output": "np.array([[0.5  , 0.25 , 0.125],\n       [1.5  , 2.25 , 3.375]])"
+      },
+      {
+        "input": "generate_polynomial_features(np.array([10]), 1)",
+        "expected_output": "np.array([[10.]])"
+      },
+      {
+        "input": "generate_polynomial_features(np.array([1, 2, 3]), 0)",
+        "expected_output": "np.array([])"
+      },
+      {
+        "input": "generate_polynomial_features(np.array([]), 2)",
+        "expected_output": "np.array([[], []])"
+      }
+    ]
+  },
+  {
+    "title": "Data Preprocessing: Missing Value Imputer for Time Series",
+    "description": "You're working with sensor data for a predictive maintenance model, and occasionally, sensors report `NaN` values. A simple yet effective strategy for time series data is to impute missing values using the *mean of the preceding and succeeding non-NaN values*. If a `NaN` is at the beginning or end of the series, or surrounded by other `NaN`s without a valid preceding/succeeding value, use the nearest valid value. Your function should take a 1D NumPy array (representing a single sensor's readings over time) and return a new array with `NaN`s imputed. This is crucial for models that cannot handle missing data.",
+    "starter_code": "import numpy as np\nfrom typing import List\n\ndef impute_time_series_nans(data: np.ndarray) -> np.ndarray:\n    \"\"\"\n    Imputes NaN values in a 1D NumPy array using the mean of preceding and succeeding non-NaN values.\n    If no preceding/succeeding value, uses the nearest valid value.\n\n    Args:\n        data (np.ndarray): A 1D NumPy array with potential NaN values.\n\n    Returns:\n        np.ndarray: A new 1D NumPy array with NaN values imputed.\n    \"\"\"\n    # Your implementation here\n    pass",
+    "solution": "import numpy as np\nfrom typing import List\n\ndef impute_time_series_nans(data: np.ndarray) -> np.ndarray:\n    \"\"\"\n    Imputes NaN values in a 1D NumPy array using the mean of preceding and succeeding non-NaN values.\n    If no preceding/succeeding value, uses the nearest valid value.\n\n    Args:\n        data (np.ndarray): A 1D NumPy array with potential NaN values.\n\n    Returns:\n        np.ndarray: A new 1D NumPy array with NaN values imputed.\n    \"\"\"\n    if not isinstance(data, np.ndarray) or data.ndim != 1:\n        raise ValueError(\"Input 'data' must be a 1D NumPy array.\")\n\n    imputed_data = data.copy()\n    nans = np.isnan(imputed_data)\n\n    # If all values are NaN, return an array of zeros or raise an error depending on desired behavior\n    if np.all(nans):\n        return np.zeros_like(imputed_data)\n\n    # Forward fill to handle NaNs at the beginning or consecutive NaNs where no preceding value exists\n    # This is a temporary fill to find the 'nearest' valid value for the first pass\n    ffilled_data = imputed_data.copy()\n    for i in range(1, len(ffilled_data)):\n        if np.isnan(ffilled_data[i]) and not np.isnan(ffilled_data[i-1]):\n            ffilled_data[i] = ffilled_data[i-1]\n\n    # Backward fill to handle NaNs at the end or consecutive NaNs where no succeeding value exists\n    # This is a temporary fill to find the 'nearest' valid value for the second pass\n    bfilled_data = imputed_data.copy()\n    for i in range(len(bfilled_data) - 2, -1, -1):\n        if np.isnan(bfilled_data[i]) and not np.isnan(bfilled_data[i+1]):\n            bfilled_data[i] = bfilled_data[i+1]\n\n    # Combine forward and backward fill for the mean imputation\n    for i in np.where(nans)[0]:\n        prev_idx = np.where(~np.isnan(data[:i]))[0]\n        next_idx = np.where(~np.isnan(data[i+1:]))[0] + i + 1\n\n        if len(prev_idx) > 0 and len(next_idx) > 0:\n            imputed_data[i] = (data[prev_idx[-1]] + data[next_idx[0]]) / 2\n        elif len(prev_idx) > 0:\n            imputed_data[i] = data[prev_idx[-1]]\n        elif len(next_idx) > 0:\n            imputed_data[i] = data[next_idx[0]]\n        else:\n            # This case should ideally be covered by the initial all-NaN check,\n            # but as a fallback, if a single NaN remains and no valid values exist,\n            # it might happen in complex scenarios. For simplicity, we'll use 0 or raise error.\n            # Given the problem statement, this should not occur if there's at least one non-NaN.\n            imputed_data[i] = 0.0 # Or handle as per specific requirement\n\n    # Final pass to ensure any remaining NaNs (e.g., if the whole array was NaN) are handled\n    # This is important if the initial all-NaN check was not strict enough or if the logic above missed something\n    # For this specific problem, the previous logic should cover it, but as a robust measure:\n    # Use np.nan_to_num to convert any remaining NaNs to 0, or use a more sophisticated fill.\n    imputed_data = np.nan_to_num(imputed_data, nan=0.0) # Convert any remaining NaNs to 0\n\n    return imputed_data",
+    "language": "python",
+    "test_cases": [
+      {
+        "input": "impute_time_series_nans(np.array([1.0, np.nan, 3.0, 4.0]))",
+        "expected_output": "np.array([1., 2., 3., 4.])"
+      },
+      {
+        "input": "impute_time_series_nans(np.array([np.nan, 2.0, 3.0, np.nan, 5.0]))",
+        "expected_output": "np.array([2. , 2. , 3. , 4. , 5.])"
+      },
+      {
+        "input": "impute_time_series_nans(np.array([1.0, np.nan, np.nan, 4.0]))",
+        "expected_output": "np.array([1. , 2.5, 2.5, 4. ])"
+      },
+      {
+        "input": "impute_time_series_nans(np.array([np.nan, np.nan, np.nan]))",
+        "expected_output": "np.array([0., 0., 0.])"
+      },
+      {
+        "input": "impute_time_series_nans(np.array([1.0, 2.0, 3.0]))",
+        "expected_output": "np.array([1., 2., 3.])"
+      },
+      {
+        "input": "impute_time_series_nans(np.array([np.nan, 2.0, np.nan, 4.0, np.nan]))",
+        "expected_output": "np.array([2., 2., 3., 4., 4.])"
+      }
+    ]
+  },
+  {
+    "title": "Model Evaluation: Custom F1-Score Calculator",
+    "description": "In a binary classification task for fraud detection, you need to evaluate your model's performance using the F1-score. While libraries like scikit-learn provide this, you're asked to implement a custom function to calculate the F1-score manually. This helps in understanding the underlying metrics. Your function should take two 1D NumPy arrays: `y_true` (actual labels) and `y_pred` (predicted labels). Both arrays contain only 0s and 1s. The F1-score is the harmonic mean of precision and recall. Handle cases where precision or recall might be undefined (e.g., no positive predictions or no actual positives) by returning 0.0 for the F1-score in such scenarios.",
+    "starter_code": "import numpy as np\nfrom typing import Tuple\n\ndef calculate_f1_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:\n    \"\"\"\n    Calculates the F1-score for binary classification.\n\n    Args:\n        y_true (np.ndarray): 1D NumPy array of true labels (0s and 1s).\n        y_pred (np.ndarray): 1D NumPy array of predicted labels (0s and 1s).\n\n    Returns:\n        float: The calculated F1-score. Returns 0.0 if precision or recall is undefined.\n    \"\"\"\n    # Your implementation here\n    pass",
+    "solution": "import numpy as np\nfrom typing import Tuple\n\ndef calculate_f1_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:\n    \"\"\"\n    Calculates the F1-score for binary classification.\n\n    Args:\n        y_true (np.ndarray): 1D NumPy array of true labels (0s and 1s).\n        y_pred (np.ndarray): 1D NumPy array of predicted labels (0s and 1s).\n\n    Returns:\n        float: The calculated F1-score. Returns 0.0 if precision or recall is undefined.\n    \"\"\"\n    if not isinstance(y_true, np.ndarray) or y_true.ndim != 1 or \\\n       not isinstance(y_pred, np.ndarray) or y_pred.ndim != 1 or \\\n       y_true.shape != y_pred.shape:\n        raise ValueError(\"y_true and y_pred must be 1D NumPy arrays of the same shape.\")\n\n    # Ensure labels are binary (0 or 1)\n    if not np.all(np.isin(y_true, [0, 1])) or not np.all(np.isin(y_pred, [0, 1])):\n        raise ValueError(\"Labels in y_true and y_pred must be 0 or 1.\")\n\n    true_positives = np.sum((y_true == 1) & (y_pred == 1))\n    false_positives = np.sum((y_true == 0) & (y_pred == 1))\n    false_negatives = np.sum((y_true == 1) & (y_pred == 0))\n\n    # Calculate Precision\n    if (true_positives + false_positives) == 0:\n        precision = 0.0\n    else:\n        precision = true_positives / (true_positives + false_positives)\n\n    # Calculate Recall\n    if (true_positives + false_negatives) == 0:\n        recall = 0.0\n    else:\n        recall = true_positives / (true_positives + false_negatives)\n\n    # Calculate F1-score\n    if (precision + recall) == 0:\n        f1_score = 0.0\n    else:\n        f1_score = 2 * (precision * recall) / (precision + recall)\n\n    return f1_score",
+    "language": "python",
+    "test_cases": [
+      {
+        "input": "calculate_f1_score(np.array([1, 1, 0, 1, 0]), np.array([1, 0, 0, 1, 1]))",
+        "expected_output": "0.6666666666666666"
+      },
+      {
+        "input": "calculate_f1_score(np.array([0, 0, 0, 0, 0]), np.array([0, 0, 0, 0, 0]))",
+        "expected_output": "0.0"
+      },
+      {
+        "input": "calculate_f1_score(np.array([1, 1, 1, 1, 1]), np.array([1, 1, 1, 1, 1]))",
+        "expected_output": "1.0"
+      },
+      {
+        "input": "calculate_f1_score(np.array([1, 0, 1, 0, 1]), np.array([0, 1, 0, 1, 0]))",
+        "expected_output": "0.0"
+      },
+      {
+        "input": "calculate_f1_score(np.array([0, 0, 0, 0, 0]), np.array([1, 1, 1, 1, 1]))",
+        "expected_output": "0.0"
+      },
+      {
+        "input": "calculate_f1_score(np.array([1, 1, 1, 1, 1]), np.array([0, 0, 0, 0, 0]))",
+        "expected_output": "0.0"
+      }
+    ]
+  }
+]
+```
+-------------------------
+INFO:     127.0.0.1:49703 - "POST /generate-tasks HTTP/1.1" 200 OK

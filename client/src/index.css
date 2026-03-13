@@ -1,0 +1,175 @@
+:root {
+  /* Modern Educational Palette */
+  --bg-dark: #2E2B33;
+  --bg-darker: #1C1A20;
+  --primary: #78B8B8;
+  --primary-glow: rgba(120, 184, 184, 0.5);
+  --secondary: #906C7D;
+  --secondary-glow: rgba(144, 108, 125, 0.5);
+  --accent: #D89F9E;
+  --accent-glow: rgba(216, 159, 158, 0.6);
+  --surface-blue: #7287AB;
+  --cursor-blue: #C6F5FF;
+
+  /* UI Surfaces */
+  --card-bg: rgba(86, 78, 104, 0.85);
+  --glass-border: rgba(114, 135, 171, 0.3);
+
+  /* Text Colors */
+  --text-main: #f3f4f6;
+  --text-dim: #d1d5db;
+  --text-bright: #ffffff;
+
+  /* Fonts */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--accent);
+  color: #000000;
+}
+
+::-moz-selection {
+  background: var(--accent);
+  color: #000000;
+}
+
+body {
+  font-family: var(--font-body);
+  /* Cinematic Mountain Background */
+  background: linear-gradient(rgba(46, 43, 51, 0.85), rgba(46, 43, 51, 0.85)),
+    url('/mountain-bg.png') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Cinematic Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(120, 184, 184, 0.08) 0%, transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(216, 159, 158, 0.08) 0%, transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(114, 135, 171, 0.08) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0e14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Utility Classes */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, #609da0 100%);
+  color: white;
+  border: none;
+  padding: 10px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(120, 184, 184, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(120, 184, 184, 0.5);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: rgba(120, 184, 184, 0.1);
+  border: 1px solid rgba(120, 184, 184, 0.3);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* --- LIGHT MODE INVERSION LOGIC --- */
+/* By inverting and rotating hue by 180 degrees, very dark colors become bright, 
+   but specific brand colors (like teal #78B8B8 and purple) retain their general hue 
+   family because 180deg flips them and flips them back essentially for secondary colors. */
+body.light-mode {
+  filter: invert(1) hue-rotate(180deg) brightness(1.1);
+  background-color: #0d0f17;
+  /* When inverted, this becomes a nice bright off-white */
+}
+
+/* Re-invert media, avatars, and coding editors so they look normal */
+body.light-mode img,
+body.light-mode video,
+body.light-mode iframe,
+body.light-mode .react-codemirror2,
+body.light-mode CodeMirror,
+body.light-mode .terminal,
+body.light-mode .xterm {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+body.light-mode .custom-cursor-element {
+  filter: invert(1) hue-rotate(180deg) !important;
+}

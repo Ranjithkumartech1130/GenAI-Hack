@@ -1,0 +1,44 @@
+﻿{
+    "success":  true,
+    "tasks":  [
+                  {
+                      "title":  "Foundation: Machine Learning Analysis",
+                      "description":  "Perform a basic analysis and architectural setup for a Machine Learning project.",
+                      "starter_code":  "# Project: Machine Learning\n# Step 1: Initialize core components\n",
+                      "solution":  "print(\u0027Environment ready\u0027)",
+                      "language":  "python",
+                      "test_cases":  [
+                                         {
+                                             "input":  "",
+                                             "expected_output":  "Environment ready"
+                                         }
+                                     ]
+                  },
+                  {
+                      "title":  "Logic: Machine Learning Data Handler",
+                      "description":  "Create a function to handle incoming signals for the Machine Learning system.",
+                      "starter_code":  "def process_data(data):\n    # Your logic here\n    pass",
+                      "solution":  "def process_data(data): return data",
+                      "language":  "python",
+                      "test_cases":  [
+                                         {
+                                             "input":  "process_data(\u0027test\u0027)",
+                                             "expected_output":  "test"
+                                         }
+                                     ]
+                  },
+                  {
+                      "title":  "Production: Machine Learning API Mock",
+                      "description":  "Implement a mock interface for testing the Machine Learning integration.",
+                      "starter_code":  "class MockAPI:\n    def get_status(self):\n        return \u0027offline\u0027",
+                      "solution":  "class MockAPI:\n    def get_status(self):\n        return \u0027online\u0027",
+                      "language":  "python",
+                      "test_cases":  [
+                                         {
+                                             "input":  "MockAPI().get_status()",
+                                             "expected_output":  "online"
+                                         }
+                                     ]
+                  }
+              ]
+}

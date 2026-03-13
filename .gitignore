@@ -1,0 +1,78 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/
+dist/
+build/
+.vercel/
+.turbo/
+.turbopack/
+
+# Python
+venv/
+.venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.tox/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+backend/node_modules/
+ai/venv/
+ai/*.log
+backend/*.log
+
+# AI/ML redundant files
+*_backup/
+*_old/
+*trained_algorithm_model/
+*trained_algorithm_model_backup/
+*trained_algorithm_model_old/
+archive (13)/
+
+# Agent Tools
+.qodo/
+.zencoder/
+.zenflow/
+.agent/
+venv/
+.env
+__pycache__/
+*.pyc
+*.pkl
+*.pt
+*.onnx
+node_modules/
+dist/
+build/
+*.zip
+*.tar
+*.csv
+*.dataset

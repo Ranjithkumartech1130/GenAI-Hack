@@ -1,0 +1,659 @@
+/* ═══════════════════════════════════════════════════════
+   SkillGPS Voice Assistant — Premium Floating UI
+   ═══════════════════════════════════════════════════════ */
+
+/* ── FAB (Minimised) Button ── */
+.voice-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 10000;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer !important;
+}
+
+.voice-fab-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2a2635 0%, #1c1a20 100%);
+    border: 2px solid rgba(120, 184, 184, 0.3);
+    color: rgba(120, 184, 184, 0.7);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
+}
+
+.voice-fab-inner.active {
+    background: linear-gradient(135deg, rgba(120, 184, 184, 0.15) 0%, rgba(114, 135, 171, 0.15) 100%);
+    border-color: rgba(120, 184, 184, 0.6);
+    color: #78B8B8;
+    box-shadow: 0 8px 32px rgba(120, 184, 184, 0.3);
+}
+
+.voice-fab:hover .voice-fab-inner {
+    transform: scale(1.1);
+    border-color: #78B8B8;
+    color: #78B8B8;
+}
+
+.voice-fab-pulse {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(120, 184, 184, 0.4);
+    animation: fabPulse 2s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes fabPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.25);
+        opacity: 0;
+    }
+}
+
+/* ── Main Panel ── */
+.voice-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10000;
+    width: 320px;
+    background: linear-gradient(145deg, rgba(30, 27, 38, 0.97) 0%, rgba(28, 26, 32, 0.98) 100%);
+    border: 1px solid rgba(120, 184, 184, 0.2);
+    border-radius: 20px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(120, 184, 184, 0.1) inset,
+        0 1px 0 rgba(255, 255, 255, 0.05) inset;
+    backdrop-filter: blur(24px);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Inter', sans-serif;
+}
+
+.voice-panel.expanded {
+    width: 380px;
+    max-height: 85vh;
+}
+
+/* ── Panel Header ── */
+.voice-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.voice-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.voice-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.voice-status-dot.idle {
+    background: #6b7280;
+    box-shadow: 0 0 4px rgba(107, 114, 128, 0.5);
+}
+
+.voice-status-dot.listening {
+    background: #78B8B8;
+    box-shadow: 0 0 8px rgba(120, 184, 184, 0.6);
+    animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+.voice-status-dot.speaking {
+    background: #D89F9E;
+    box-shadow: 0 0 8px rgba(216, 159, 158, 0.6);
+    animation: dotPulse 1s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.3);
+    }
+}
+
+.voice-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: -0.01em;
+}
+
+.voice-mode-badge {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(120, 184, 184, 0.1);
+    color: rgba(120, 184, 184, 0.8);
+    border: 1px solid rgba(120, 184, 184, 0.15);
+    font-weight: 500;
+}
+
+.voice-header-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.voice-header-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer !important;
+    transition: all 0.2s ease;
+}
+
+.voice-header-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ── Waveform ── */
+.voice-waveform-container {
+    padding: 4px 16px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.voice-waveform {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+}
+
+/* ── Status Section ── */
+.voice-status-section {
+    padding: 8px 16px;
+    min-height: 32px;
+}
+
+.voice-transcript {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: rgba(120, 184, 184, 0.08);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(120, 184, 184, 0.1);
+}
+
+.voice-transcript span {
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.voice-feedback {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 4px 0;
+    transition: color 0.2s ease;
+}
+
+.voice-feedback.success {
+    color: rgba(120, 184, 184, 0.9);
+}
+
+.voice-feedback.error {
+    color: rgba(216, 159, 158, 0.9);
+}
+
+.voice-speaking-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: rgba(216, 159, 158, 0.8);
+    margin-top: 4px;
+}
+
+.voice-speaking-icon {
+    animation: speakWobble 0.8s ease-in-out infinite;
+}
+
+@keyframes speakWobble {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* ── Controls ── */
+.voice-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px 14px;
+}
+
+.voice-mic-btn {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer !important;
+    transition: transform 0.2s ease;
+}
+
+.voice-mic-btn:hover {
+    transform: scale(1.08);
+}
+
+.voice-mic-btn:active {
+    transform: scale(0.95);
+}
+
+.voice-mic-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2d2839 0%, #201d28 100%);
+    border: 2px solid rgba(120, 184, 184, 0.25);
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.voice-mic-btn.active .voice-mic-inner {
+    background: linear-gradient(135deg, rgba(120, 184, 184, 0.2) 0%, rgba(114, 135, 171, 0.2) 100%);
+    border-color: rgba(120, 184, 184, 0.6);
+    color: #78B8B8;
+    box-shadow: 0 0 24px rgba(120, 184, 184, 0.3);
+}
+
+.voice-mic-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(120, 184, 184, 0.3);
+    z-index: 1;
+}
+
+.voice-mic-ring.ring-1 {
+    animation: ringExpand 2s ease-out infinite;
+}
+
+.voice-mic-ring.ring-2 {
+    animation: ringExpand 2s ease-out infinite 0.6s;
+}
+
+@keyframes ringExpand {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+.voice-control-hint {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+/* ── Quick Tips ── */
+.voice-quick-tips {
+    padding: 8px 16px 14px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.voice-tip {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.voice-tip strong {
+    color: rgba(120, 184, 184, 0.7);
+}
+
+/* ── Help Panel ── */
+.voice-help-panel {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    max-height: 340px;
+    display: flex;
+    flex-direction: column;
+}
+
+.voice-help-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.voice-category-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 0 12px 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.voice-category-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.voice-cat-tab {
+    padding: 4px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.7rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer !important;
+    transition: all 0.2s ease;
+}
+
+.voice-cat-tab:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.voice-cat-tab.active {
+    background: rgba(120, 184, 184, 0.15);
+    border-color: rgba(120, 184, 184, 0.3);
+    color: #78B8B8;
+}
+
+.voice-commands-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 12px 12px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(120, 184, 184, 0.2) transparent;
+}
+
+.voice-commands-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.voice-commands-list::-webkit-scrollbar-thumb {
+    background: rgba(120, 184, 184, 0.2);
+    border-radius: 2px;
+}
+
+.voice-command-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: 4px;
+    transition: background 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.voice-command-item:hover {
+    background: rgba(120, 184, 184, 0.06);
+    border-color: rgba(120, 184, 184, 0.1);
+}
+
+.voice-cmd-desc {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.voice-cmd-example {
+    font-size: 0.68rem;
+    color: rgba(120, 184, 184, 0.5);
+    font-style: italic;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ── NLP-Specific Styles ── */
+.voice-nlp-badge {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(120, 184, 184, 0.1) 100%) !important;
+    border-color: rgba(168, 85, 247, 0.3) !important;
+    color: rgba(192, 132, 252, 0.9) !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.voice-nlp-result {
+    padding: 5px 10px;
+    background: rgba(168, 85, 247, 0.06);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    border: 1px solid rgba(168, 85, 247, 0.1);
+}
+
+.voice-intent-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+}
+
+.voice-intent-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.voice-confidence-pill {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 100px;
+    border: 1px solid;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    letter-spacing: 0.02em;
+}
+
+.voice-nlp-note {
+    padding: 8px 16px;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.voice-nlp-note em {
+    color: rgba(192, 132, 252, 0.65);
+}
+
+/* ── Language Picker ── */
+.voice-lang-badge {
+    cursor: pointer !important;
+    background: rgba(59, 130, 246, 0.1) !important;
+    border-color: rgba(59, 130, 246, 0.25) !important;
+    color: rgba(147, 197, 253, 0.9) !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.voice-lang-badge:hover {
+    background: rgba(59, 130, 246, 0.2) !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+.voice-lang-picker {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 10px 12px 14px;
+}
+
+.voice-lang-picker-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 4px 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.voice-lang-picker-header span {
+    flex: 1;
+}
+
+.voice-lang-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+}
+
+.voice-lang-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    cursor: pointer !important;
+    transition: all 0.2s ease;
+}
+
+.voice-lang-item:hover {
+    background: rgba(59, 130, 246, 0.08);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
+.voice-lang-item.active {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: rgba(147, 197, 253, 1);
+    font-weight: 600;
+}
+
+.voice-lang-flag {
+    font-size: 1.1rem;
+}
+
+.voice-lang-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .voice-panel {
+        width: calc(100vw - 24px);
+        right: 12px;
+        bottom: 12px;
+        border-radius: 16px;
+    }
+
+    .voice-panel.expanded {
+        width: calc(100vw - 24px);
+        max-height: 80vh;
+    }
+}
+
+/* ── Accessibility — Keyboard focus rings ── */
+.voice-mic-btn:focus-visible,
+.voice-fab:focus-visible,
+.voice-header-btn:focus-visible,
+.voice-cat-tab:focus-visible {
+    outline: 2px solid #78B8B8;
+    outline-offset: 2px;
+}
+
+/* ── Smooth entrance animation ── */
+.voice-panel {
+    animation: panelSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes panelSlideIn {
+    0% {
+        transform: translateY(20px) scale(0.96);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.voice-fab {
+    animation: fabSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fabSlideIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

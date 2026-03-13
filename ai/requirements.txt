@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+openai
+langgraph
+google-generativeai
+requests
+beautifulsoup4
+matplotlib
+numpy
+httpx
