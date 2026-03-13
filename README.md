@@ -1,12 +1,9 @@
-# 🚀 EduNova: AI-Powered Learning Path Generator & Assessment Platform
+<img width="789" height="97" alt="image" src="https://github.com/user-attachments/assets/f6b6b4af-7f42-43c6-9015-e2236528027f" /># Intelligent Inclusive Learning Ecosystem
+<img width="1277" height="734" alt="image" src="https://github.com/user-attachments/assets/731b4705-10ab-446a-adda-211d686a2685" />
 
-![Project Status](https://img.shields.io/badge/status-active-brightgreen)
-![Build](https://img.shields.io/badge/build-passing-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![NodeJS](https://img.shields.io/badge/NodeJS-18%2B-green)
-![React](https://img.shields.io/badge/React-19-61dafb)
 
+**Project resources**
+<a href="https://drive.google.com/drive/folders/1mSzyuS_It3MjtxQI11ZgtFGYU0qDubYo?usp=sharing">Google Drive Folder</a>
 **EduNova** (formerly SkillGPS) is a comprehensive, state-of-the-art educational platform designed to redefine self-paced learning. By leveraging advanced Artificial Intelligence (Groq & Google Gemini), it dynamically generates personalized learning roadmaps, assesses code in real-time within a multi-language IDE, and simulates technical interviews for comprehensive skill development.
 
 ---
@@ -134,6 +131,4 @@ Our proprietary Algorithm Validation Graph utilizes a **6-Node LangGraph State M
 ---
 
 ## 👨‍💻 Developed By
-
-**Ranjith Kumar** & the EduNova AI Team.
-*Designed for excellence in AI-augmented education.*
+**Wired Warriors**
