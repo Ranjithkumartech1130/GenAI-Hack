@@ -12,6 +12,21 @@ https://github.com/user-attachments/assets/d6b799dd-b8a0-42a0-a588-4d62c13defb2
 
 ---
 
+
+## 🛠️ Technology Stack
+
+| Category | Technologies Used |
+| :--- | :--- |
+| **Frontend** | React 19, Vite, Tailwind CSS, GSAP (Animations) |
+| **Backend API** | Node.js, Express.js, WebSocket |
+| **AI Microservices** | Python, FastAPI, LangGraph, Groq API (Llama 3), Google Gemini |
+| **Database** | SQLite, JSON Stores |
+| **Code Execution** | Subprocess Execution, Docker (Optional scaling) |
+|**langraph** | **Automate Agentic AI**|
+|**Open AI Whisper** |
+|**Bart ts ** | FFmpeg|
+---
+
 ## ✨ Core Features
 
 *   🗺️ **Dynamic AI Learning Paths:** Instantly generate structured, step-by-step roadmaps tailored to user goals and experience levels.
@@ -24,17 +39,7 @@ https://github.com/user-attachments/assets/d6b799dd-b8a0-42a0-a588-4d62c13defb2
 
 ---
 
-## 🛠️ Technology Stack
 
-| Category | Technologies Used |
-| :--- | :--- |
-| **Frontend** | React 19, Vite, Tailwind CSS, GSAP (Animations) |
-| **Backend API** | Node.js, Express.js, WebSocket |
-| **AI Microservices** | Python, FastAPI, LangGraph, Groq API (Llama 3), Google Gemini |
-| **Database** | SQLite, JSON Stores |
-| **Code Execution** | Subprocess Execution, Docker (Optional scaling) |
-
----
 
 ## 🏗️ System Architecture
 
